@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>[Thực hành] Xây dựng lớp Hình Tròn</title>
+</head>
+<body>
+      <script>
+            let Circle = function(radiusInput, colorInput) {
+                  let radius  = radiusInput;
+                  let color = colorInput;
+                  this.getRadius = function() {
+                        return radius;
+                  };
+                  this.getArea = function() {
+                        return Math.pow(radius,2)*Math.PI;
+                  }
+            }
+
+            let sampleCircle = new Circle(20,"black");
+            alert(`Diện tích là ${sampleCircle.getArea().toFixed(2)}`);
+      </script>
+</body>
+</html>
