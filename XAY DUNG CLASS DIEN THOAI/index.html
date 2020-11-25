@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>[Bài tập] Xây dựng lớp mô tả điện thoại</title>
+</head>
+<body>
+      <script>
+            let Mobile = function(name) {
+                  let battery = 100;
+                  let ownerPhone = name;
+                  this.isPhoneOn = false;
+                  let draftMessage = [];
+                  let inboxMessage = [];
+                  let sentMessage = [];
+                  this.getBattery = function() {
+                        return battery;
+                  }
+                  this.turnOnOff = function() {
+                        if (this.isPhoneOn) {
+                              this.phoneStatus = false;
+                        } else if(!this.isPhoneOn) {
+                              this.isPhoneOn = true;
+                        }
+                        battery -= 1;
+                  };
+                  this.checkPhoneStatus = function() {
+                        if (this.isPhoneOn) {
+                              alert("Điện thoại đang bật");
+                              battery -= 1;
+                        }
+                  };
+                  this.chargeBattery = function(hours) {
+                        if (battery + hours * 40 >= 100) {
+                              battery = 100;
+                        } else if (hours >= 0) {
+                              battery += Math.floor(hours * 40);
+                        }
+                  };
+                  this.writeMessage = function() {
+                        let message;
+                        if (this.isPhoneOn) {
+                              message = prompt(`Nhập nội dung cần gửi từ máy của ${ownerPhone}`);
+                              draftMessage.unshift(message);
+                              battery -= 1;
+                        };
+                        
+                  };
+                  this.receiveMessage = function(message) {
+                        if (this.isPhoneOn) {
+                              inboxMessage.unshift(message);
+                              battery -= 1;
+                        };
+                        
+                  };
+                  this.sendMassage = function(index, toSomebody) {
+                        if (this.isPhoneOn) {
+                              let message = draftMessage[index];
+                              draftMessage.splice(index,1);
+                              sentMessage.unshift({content: message, to: toSomebody});
+                              battery -= 1;
+                              return {content: message, from: ownerPhone};
+                        };
+
+                  };
+                  this.readDraftMessage = function(index) {
+                        if (this.isPhoneOn) {
+                              document.write("<h3>DRAFT MESSAGES</h3>");
+                              document.write(`Nội dung tin nhắn đã soạn: &quot;${draftMessage[index]}&quot;`);
+                              battery -= 1;
+                        }
+                  };
+                  this.readInboxMessage = function(index) {
+                        if (this.isPhoneOn) {
+                              document.write("<h3>INBOX</h3>");
+                              document.write(`Nội dung tin nhắn: &quot;${inboxMessage[index].content}&quot;, người gửi: <strong>&quot;${inboxMessage[index].from}&quot;</strong>`);
+                              battery -= 1;
+                        };
+                        
+                  };
+                  this.readSentMessage = function(index) {
+                        if (this.isPhoneOn) {
+                              document.write("<h3>SENT MESSAGES</h3>");
+                              document.write(`Nội dung tin nhắn đã gửi: &quot;${sentMessage[index].content}&quot;, người nhận: <strong>&quot;${sentMessage[index].to}&quot;</strong>`);
+                              battery -= 1;
+                        }
+                  }
+            }
+
+            let nokia = new Mobile("Nhật Tân");
+            let iphone = new Mobile("Thảo Ly");
+            nokia.turnOnOff();
+            iphone.turnOnOff();
+            nokia.writeMessage();
+            iphone.receiveMessage(nokia.sendMassage(0,"Thảo Ly"));
+            iphone.readInboxMessage(0);
+
+      </script>
+</body>
+</html>
