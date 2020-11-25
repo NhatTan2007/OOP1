@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>[Bài tập] Xây dựng lớp mô tả hình chữ nhật</title>
+</head>
+<body>
+      <canvas id="myCanvas" width="1024px" height="768px" style="border:1px solid rgb(173, 173, 173)"></canvas>
+
+      <script>
+            function Rectangle(widthInput, heightInput) {
+                  width = widthInput;
+                  height = heightInput;
+                  this.setWidth = function(number) {
+                        width = number;
+                  }
+                  this.setHeight = function(number) {
+                        height = number;
+                  }
+                  this.getWidth = function() {
+                        return width;
+                  }
+                  this.getHeight = function() {
+                        return height;
+                  }
+                  this.getArea = function() {
+                        return width*height;
+                  };
+                  this.getPerimeter = () => {
+                        return (width + height) * 2;
+                  }
+                  this.drawRectangle = () => {
+                        let canvas = document.getElementById("myCanvas");
+                        let context = canvas.getContext("2d");
+                        context.beginPath();
+                        context.rect(50,50,width,height);
+                        context.lineWidth = 5;
+                        context.stroke();
+                        context.fillStyle = "#778beb";
+                        context.fill();
+                  }
+            };
+
+            let clearCanvas = () => {
+                        let canvas = document.getElementById("myCanvas");
+                        let context = canvas.getContext("2d");
+                        context.clearRect(0,0,canvas.width,canvas.height);
+                  }
+
+            let newRect = new Rectangle(800,400);
+            newRect.drawRectangle();
+            alert(`Chu vi: ${newRect.getPerimeter()}, diện tích: ${newRect.getArea()}`);
+            newRect.setWidth(+prompt("Nhập vào chiều dài mới"));
+            newRect.setHeight(+prompt("Nhập vào chiều rộng mới"));
+            clearCanvas();
+            newRect.drawRectangle();
+
+      </script>
+</body>
+</html>
