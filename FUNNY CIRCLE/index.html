@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>[Thực hành] Funny circles</title>
+</head>
+<body>
+      <canvas id="myCanvas" width="1024px" height="768px" style="border: 1px solid #535353;"></canvas>
+      <script>
+            function Circle(x,y,radiusInput, colorInput) {
+                  let posX = x;
+                  let posY = y;
+                  let radius = radiusInput;
+                  let color = colorInput;
+                  this.setPosX = function(input) {
+                        posX = input;
+                  }
+                  this.setPosY = function(input) {
+                        posY = input;
+                  }
+                  this.drawCircleOnCanVas = function() {
+                        let ctx = document.getElementById("myCanvas").getContext("2d");
+                        ctx.beginPath();
+                        ctx.arc(posX,posY,radius,0,2*Math.PI);
+                        ctx.fillStyle = color;
+                        ctx.fill();
+                        ctx.lineWidth = 2;
+                        ctx.strokeStyle = "black";
+                        ctx.stroke();
+                  }
+            }
+
+            function getRandomHex(){
+                  return Math.floor(Math.random()*255);
+            }
+
+            function getRandomColor(){
+                  var red = getRandomHex();
+                  var green = getRandomHex();
+                  var blue = getRandomHex();
+                  return `rgb(${red},${green},${blue})      `;
+            }
+            let sampleCircle = [];
+            for (let i = 0; i < 30; i++) {
+                  sampleCircle[i] = new Circle(Math.random() * window.innerWidth,Math.random() * window.innerHeight,Math.floor(Math.random()*151) + 20,getRandomColor());
+                  sampleCircle[i].drawCircleOnCanVas();
+            }
+      </script>
+</body>
+</html>
